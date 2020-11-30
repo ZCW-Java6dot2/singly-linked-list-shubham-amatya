@@ -29,15 +29,29 @@ public class SinglyLinkedList<randomType extends Comparable<randomType>> {
         return listCount;
     }
 
-    public void add(Object data) { //to add the element to the end of the list
-        Node singlyTemp = new Node(data);
-        Node singlyCurrent = head;
+    public int getListLength() {
+        return listLength;
+    }
 
+    public void setListLength(int listLength) {
+        this.listLength = listLength;
+    }
+
+    public void add(randomType data) { //to add the element to the end of the list
+
+
+        Node singlyTemp = new Node<randomType>(data);
+
+        if (head == null) {
+            head = new Node<randomType>(data);
+        }
+        Node singlyCurrent = head;
         while (singlyCurrent.getNext() != null) {
             singlyCurrent = singlyCurrent.getNext();
         }
         singlyCurrent.setNext(singlyTemp);
         listCount++;
+
     }
 
 
@@ -57,23 +71,24 @@ public class SinglyLinkedList<randomType extends Comparable<randomType>> {
     }
 
     public Boolean contains(randomType data) {
-        Node currentNode = head;
-        if (head != null) {
-            currentNode = head;
-        }
-        for (int i = 0; i < listLength; i++) {
-            if (currentNode.getData().equals(data)) {
-                return true;
+        Node<randomType> currentNode = head;
+        if (head == null) {
+            return false;
+        } else {
+            for (int i = 0; i < getListLength(); i++) {
+                if (currentNode.getData().equals(data)) {
+                    return true;
+                }
+                currentNode = currentNode.getNext();
             }
-            currentNode = currentNode.getNext();
         }
         return false;
     }
 
     public Integer find(randomType data) {
         Node currentNode = head;
-        if (head != null) {
-            currentNode = head;
+        if (head == null) {
+            return -1;
         }
         for (int i = 0; i < listLength; i++) {
             if (currentNode.getData().equals(data)) {
@@ -84,14 +99,14 @@ public class SinglyLinkedList<randomType extends Comparable<randomType>> {
         return -1;
     }
 
-    public int size(){
+    public int size() {
         return getListCount();
     }
 
-    public randomType get(Integer index){
+    public randomType get(Integer index) {
         int tempIndex = head.getIndex();
         Node<randomType> tempNode = head;
-        while(tempIndex != index){
+        while (tempIndex != index) {
             tempIndex++;
             tempNode = tempNode.getNext();
         }
@@ -99,7 +114,7 @@ public class SinglyLinkedList<randomType extends Comparable<randomType>> {
 
     }
 
-    public SinglyLinkedList copy(){
+    public SinglyLinkedList copy() {
         SinglyLinkedList copy = new SinglyLinkedList();
         randomType tempNode = null;
         Node currentNode = head.getNext();
@@ -113,8 +128,5 @@ public class SinglyLinkedList<randomType extends Comparable<randomType>> {
         }
         return copy;
     }
-
-
-
 
 }
